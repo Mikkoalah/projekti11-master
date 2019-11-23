@@ -14,13 +14,7 @@ namespace projekti1
 
         static void Main(String[] args)
         {
-            //var connString = "Host=localhost;Username=postgres;Password=Grespost99;Database=Sarjataulukko";
-            //using (var conn = new NpgsqlConnection(connString))
-            //{
-            //    conn.Open(); // Here we open connection
-            //}
-
-            /**** **/
+       
           
 
 
@@ -31,12 +25,6 @@ namespace projekti1
             List<Ottelu> Ottelut = new List<Ottelu>();
             List<Joukkue> Joukkueluottelo = new List<Joukkue>();
             Joukkue joukkueet = null;
-            
-
-
-
-
-
             do
             {
                 Console.WriteLine();
@@ -64,10 +52,10 @@ namespace projekti1
                         {
                             Console.Write("Anna {0}. joukkueen nimi: ", i + 1);
                             joukkueet = new Joukkue(Console.ReadLine());
-                   
+                           
                             Joukkueluottelo.Add(joukkueet);
                             Sarjataulukko.Add(joukkueet);
-                           // Tietokanta.LisaaJoukkue(joukkueet);
+                         //  Tietokanta.LisaaJoukkue(joukkueet);
 
                         }
                         break;
@@ -112,8 +100,6 @@ namespace projekti1
                                 else
                                 {
                                     Console.WriteLine("Ottelun voittaja on: {0}", uusiOttelu.Getvoittaja());
-
-
                                 }
                              //   Tietokanta.LisaaOttelu(uusiOttelu);
                                 Console.WriteLine();
@@ -142,15 +128,13 @@ namespace projekti1
                                 if (aseta.Getvoittaja() == laske.GetNimi())
                                 {
                                     laske.SetPisteet(3);
-                                }
-                            
+                                }                       
                             //LISÄTÄÄN OTTELUJENMÄÄRÄÄ PELAAVILLE JOUKKUEILLE
                             
                                 if (aseta.getJoukkue1() == laske.GetNimi() || aseta.getJoukkue2() == laske.GetNimi())
                                 {
                                     laske.SetOtteluLKM(1);
-                                }
-                            
+                                }                           
                             //LISÄTÄÄN KOTIJOUKKUEILLE PISTEET TASAPELITILANTEESSA                           
                                 if (aseta.GetMaalit1() == aseta.GetMaalit2() && aseta.getJoukkue1() == laske.GetNimi())
                                 {
@@ -165,9 +149,7 @@ namespace projekti1
                                 if (aseta.getJoukkue1() == laske.GetNimi())
                                 {
                                     laske.SetTehdytMaalit(aseta.GetMaalit1());
-                                }
-                              
-
+                                }                            
                                 //TEHDYTMAALIT VIERASJOUKKUEELLE
                                 if (aseta.getJoukkue2() == laske.GetNimi())
                                 {
@@ -182,14 +164,9 @@ namespace projekti1
                                 if (aseta.getJoukkue2()== laske.GetNimi())
                                 {
                                     laske.SetPaastetytMaalit(aseta.GetMaalit1());
-                                }
-
-
-                                
+                                }                          
                             }
                         }
-
-
 
                         break;
                     //Tulostaa listan pelatuistat otteluista
@@ -205,27 +182,27 @@ namespace projekti1
                     case 5:
                         //TULOSTETAAN SARJATAULUKKO
                         Console.WriteLine("Joukkue  \t Ottelut \t   Pisteet \t Tehdyt Maalit \t Päästetytmaalit \t Maalierotus");
-
                         Sarjataulukko.Sort();
                         foreach (Joukkue jarjestys in Sarjataulukko)
-                        {
-                         
+                        {                   
                             Console.WriteLine($"{jarjestys.GetNimi()}\t\t{jarjestys.GetOtteluLkm()}\t\t{jarjestys.Getpisteet()}\t\t{jarjestys.GetTehdytMaalit()}\t\t {jarjestys.GetPaastetytMaalit()}\t\t{jarjestys.GetTehdytMaalit()-jarjestys.GetPaastetytMaalit()} ");
-                        }
-                        //
+                        }                       
                         break;
                     case 6:
 
-                        //LATAA SARJATAULUKKO DATABASE
+                        //LATAA SARJATAULUKKO POSSUUN
 
-                        for (int i = 0; i < Sarjataulukko.Count; i++)
+                        // Tietokanta.LisaaJoukkue(joukkueet);
+
+
+                        foreach (Joukkue item in Sarjataulukko)
                         {
-
-                                Tietokanta.LisaaJoukkue(joukkueet);                        
+                          //  Console.WriteLine(item.GetNimi());
+                            Tietokanta.LisaaJoukkue(item);
                         }
 
 
-                        //   Tietokanta.LisaaJoukkue(joukkueet);
+                          //Tietokanta.LisaaJoukkue(joukkueet);
 
                         break;
                         default:

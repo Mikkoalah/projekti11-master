@@ -35,6 +35,7 @@ namespace projekti1
         }
 
 
+      
 
         static public void LisaaJoukkue(Joukkue team)
         {
@@ -47,6 +48,9 @@ namespace projekti1
                 insertJoukkue.ExecuteNonQuery();
             }
         }
+
+
+
 
 
         //static public void LisaaOttelu(Ottelu ottelu)
