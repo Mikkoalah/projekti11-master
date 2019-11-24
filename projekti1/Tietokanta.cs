@@ -39,35 +39,35 @@ namespace projekti1
 
         static public void LisaaJoukkue(Joukkue team)
         {
-            using (insertJoukkue = new NpgsqlCommand("INSERT INTO taulukko(joukkue, ottelut, pisteet) " +
-                "VALUES (@joukkue, @ottelut, @pisteet)", connection))
+            using (insertJoukkue = new NpgsqlCommand("INSERT INTO taulukko(joukkue, ottelut, pisteet, tehdytmaalit, päästetytmaalit, maaliero) " +
+                "VALUES (@joukkue, @ottelut, @pisteet, @tehdytmaalit, @päästetytmaalit, @maaliero)", connection))
             {
                 insertJoukkue.Parameters.AddWithValue("joukkue", team.GetNimi());
                insertJoukkue.Parameters.AddWithValue("ottelut", team.GetOtteluLkm());
                insertJoukkue.Parameters.AddWithValue("pisteet", team.Getpisteet());
+                insertJoukkue.Parameters.AddWithValue("tehdytmaalit", team.GetTehdytMaalit());
+                insertJoukkue.Parameters.AddWithValue("päästetytmaalit", team.GetPaastetytMaalit());
+                insertJoukkue.Parameters.AddWithValue("maaliero", team.GetTehdytMaalit()-team.GetPaastetytMaalit());
                 insertJoukkue.ExecuteNonQuery();
+            }
+        }
+        static public void LisaaOttelu(Ottelu match)
+        {
+            using (insertOttelu = new NpgsqlCommand("INSERT INTO ottelut(koti, vieras, maalitkoti, maalitvieras, voittaja) " +
+                "VALUES (@koti, @vieras, @maalitkoti, @maalitvieras, @voittaja)", connection))
+            {
+                insertOttelu.Parameters.AddWithValue("koti", match.getJoukkue1());
+                insertOttelu.Parameters.AddWithValue("vieras", match.getJoukkue2());
+                insertOttelu.Parameters.AddWithValue("maalitkoti", match.GetMaalit1());
+                insertOttelu.Parameters.AddWithValue("maalitvieras", match.GetMaalit2());
+               insertOttelu.Parameters.AddWithValue("voittaja", match.Getvoittaja());
+                insertOttelu.ExecuteNonQuery();
             }
         }
 
 
 
-
-
-        //static public void LisaaOttelu(Ottelu ottelu)
-        //{
-        //    using (insertJoukkue = new NpgsqlCommand("INSERT INTO ottelut(koti, vieras, maalitkoti, maalitvieras) " +
-        //        "VALUES (@koti, @vieras, @maalitkoti, @maalitvieras)", connection))
-        //    {
-        //        insertOttelu.Parameters.AddWithValue("koti", ottelu.getJoukkue1());
-        //        insertOttelu.Parameters.AddWithValue("vieras", ottelu.getJoukkue2());
-        //        insertOttelu.Parameters.AddWithValue("maalitkoti", ottelu.GetMaalit1());
-        //        insertOttelu.Parameters.AddWithValue("maalitvieras", ottelu.GetMaalit2());
-        //        insertOttelu.ExecuteNonQuery();
-        //    }
-        //}
-
-
-
+       
 
 
 

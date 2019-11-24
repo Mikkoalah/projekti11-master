@@ -24,7 +24,7 @@ namespace projekti1
             List<Joukkue> Sarjataulukko = new List<Joukkue>();
             List<Ottelu> Ottelut = new List<Ottelu>();
             List<Joukkue> Joukkueluottelo = new List<Joukkue>();
-            Joukkue joukkueet = null;
+            
             do
             {
                 Console.WriteLine();
@@ -36,8 +36,8 @@ namespace projekti1
                 Console.WriteLine("6 - Lataa tiedot possuun");
                 Console.WriteLine("0 - Lopeta");
                 valinta = int.Parse(Console.ReadLine());        
-                Ottelu uusiOttelu;
-
+                Ottelu uusiOttelu = null;
+              
                 switch (valinta)
 
                 {
@@ -50,23 +50,21 @@ namespace projekti1
                         Console.WriteLine();
                         for (int i = 0; i < maara; i++)
                         {
+                            Joukkue joukkueet = null;
                             Console.Write("Anna {0}. joukkueen nimi: ", i + 1);
-                            joukkueet = new Joukkue(Console.ReadLine());
-                           
+                            joukkueet = new Joukkue(Console.ReadLine());                       
                             Joukkueluottelo.Add(joukkueet);
                             Sarjataulukko.Add(joukkueet);
-                         //  Tietokanta.LisaaJoukkue(joukkueet);
-
                         }
                         break;
 
                  
                     case 2:     //TULOSTETAAN LISTA OSALLISTUVISTA JOUKKUEISTA
-                        Console.WriteLine("Joukkueet");
-                        foreach (Joukkue item in Joukkueluottelo)
-                        {
-                            Console.WriteLine($"{item.GetNimi()}");
-                        }
+                        //Console.WriteLine("Joukkueet");
+                        //foreach (Joukkue item in Joukkueluottelo)
+                        //{
+                        //    Console.WriteLine($"{item.GetNimi()}");
+                        //}
                         break;
                     case 3:  //HAETAAN Joukkueluettolosta OTTELUITA kahden for lauseen avulla.
 
@@ -101,7 +99,7 @@ namespace projekti1
                                 {
                                     Console.WriteLine("Ottelun voittaja on: {0}", uusiOttelu.Getvoittaja());
                                 }
-                             //   Tietokanta.LisaaOttelu(uusiOttelu);
+                            
                                 Console.WriteLine();
 
                                 //SYÖTETYN OTTELUN JÄLKEEN VALITAAN EDETÄÄNKÖ Päävalikkoon vai syötetäänkö uusi ottelu
@@ -192,17 +190,20 @@ namespace projekti1
 
                         //LATAA SARJATAULUKKO POSSUUN
 
-                        // Tietokanta.LisaaJoukkue(joukkueet);
-
-
                         foreach (Joukkue item in Sarjataulukko)
                         {
-                          //  Console.WriteLine(item.GetNimi());
                             Tietokanta.LisaaJoukkue(item);
                         }
 
+                        break;
 
-                          //Tietokanta.LisaaJoukkue(joukkueet);
+                    case 7:
+
+                        //LATAAA OTTELULISTA POSSUUN
+                        foreach (Ottelu item in Ottelut)
+                        {
+                            Tietokanta.LisaaOttelu(item);
+                        }
 
                         break;
                         default:
