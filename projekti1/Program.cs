@@ -13,66 +13,89 @@ namespace projekti1
 
 
         static void Main(String[] args)
-        {
-       
-          
-
-
+        {               
             int valinta;
             int valinta2;
             int kierros = 0;
+            int ottelulaskuri=0;
+            int pelaajamaara = 0;
+            DateTime paivamaara;
             List<Joukkue> Sarjataulukko = new List<Joukkue>();
             List<Ottelu> Ottelut = new List<Ottelu>();
             List<Joukkue> Joukkueluottelo = new List<Joukkue>();
+            List<Pelaaja> pelaajaluettelo = new List<Pelaaja>();
             
             do
             {
                 Console.WriteLine();
                 Console.WriteLine("1 - Syöta sarjaan osallistuvat joukkueet");
-                Console.WriteLine("2 - Tulosta Lista osallistuvista joukkueista");
+                Console.WriteLine("2 - Syötä joukkueen pelaajalista:");
                 Console.WriteLine("3 - Syöta otteluita");
                 Console.WriteLine("4 - Tulosta lista pelatuista otteluista");
                 Console.WriteLine("5 - Tulosta Sarjataulukko");
                 Console.WriteLine("6 - Lataa tiedot possuun");
                 Console.WriteLine("0 - Lopeta");
-                valinta = int.Parse(Console.ReadLine());        
-                Ottelu uusiOttelu = null;
-              
+                valinta = int.Parse(Console.ReadLine());                               
                 switch (valinta)
 
-                {
-
-                        
-
+                {                       
                     case 1: //asetetaan Joukkueet sarjaan
                         Console.Write("Syötä sarjaan osallistuvien joukkueiden lukumäärä: ");
                         int maara = int.Parse(Console.ReadLine());
                         Console.WriteLine();
                         for (int i = 0; i < maara; i++)
                         {
-                            Joukkue joukkueet = null;
+                            Joukkue joukkueet;
                             Console.Write("Anna {0}. joukkueen nimi: ", i + 1);
                             joukkueet = new Joukkue(Console.ReadLine());                       
                             Joukkueluottelo.Add(joukkueet);
                             Sarjataulukko.Add(joukkueet);
                         }
-                        break;
+                        break;                 
+                    case 2:     // SYÖTÄ JOUKKUEIDEN PELAAJALISTA
 
-                 
-                    case 2:     //TULOSTETAAN LISTA OSALLISTUVISTA JOUKKUEISTA
-                        //Console.WriteLine("Joukkueet");
-                        //foreach (Joukkue item in Joukkueluottelo)
-                        //{
-                        //    Console.WriteLine($"{item.GetNimi()}");
-                        //}
+                        Pelaaja pelaajat;
+                        for (int i = 0; i < Joukkueluottelo.Count; i++)
+                        {
+
+                            Console.Write("Anna joukkueen {0} pelaaja määrä:", Joukkueluottelo[i].GetNimi());
+                            pelaajamaara  = int.Parse(Console.ReadLine());                  
+                            for (int j = 0; j < pelaajamaara; j++)
+                            {
+                                Console.WriteLine("Joukkueen {0} pelaaja {1}." , Joukkueluottelo[i].GetNimi(), j+1 );
+                                string joukkue = Joukkueluottelo[i].GetNimi();
+                                Console.Write("Anna Pelinumero: ");
+                                int pelinumero = int.Parse(Console.ReadLine());
+                                Console.Write("Anna etunumi: ");
+                                string etunimi = (Console.ReadLine());
+                                Console.Write("Anna Sukunimi: ");
+                                string sukinimi = Console.ReadLine();
+                                Console.Write("Anna ikä: ");
+                                int ika = int.Parse(Console.ReadLine());
+                                Console.Write("Anna Pelipaikka: ");
+                                string pelikaikka = Console.ReadLine();
+                                Console.WriteLine();
+                                pelaajat = new Pelaaja(joukkue, pelinumero,etunimi,sukinimi,ika,pelikaikka);
+                                pelaajaluettelo.Add(pelaajat);                               
+                            }
+                            
+                        }
+                        
+
+
+
+
                         break;
                     case 3:  //HAETAAN Joukkueluettolosta OTTELUITA kahden for lauseen avulla.
-
+                        Ottelu uusiOttelu;
                         Console.WriteLine();
 
                         for (int i = 0; i < Joukkueluottelo.Count; i++)
                         {
                             kierros++;
+                            
+                           
+                          
                             for (int j = 0; j < Joukkueluottelo.Count; j++)
                             {
                                 if (i == j)
@@ -80,7 +103,11 @@ namespace projekti1
                                     continue;
                                 }
                                 else
-                                    Console.WriteLine("{0}. ottelukierros = {1} vs {2}", kierros, Joukkueluottelo[i].GetNimi(), Joukkueluottelo[j].GetNimi());
+                                ottelulaskuri++; //LASKETAAN juoksevalla numeroinnilla otteluille ID
+                                Console.Write("Anna Ottelupäivämäärä muotoa DD.MM.YYYY = ");
+                                paivamaara = DateTime.Parse(Console.ReadLine());
+                               // Console.WriteLine("{0}", paivamaara);
+                                Console.WriteLine("Kierros:{0}.\nottelunumero{1} = {2} vs {3}", kierros, ottelulaskuri ,Joukkueluottelo[i].GetNimi(), Joukkueluottelo[j].GetNimi());
                                 string koti = Joukkueluottelo[i].GetNimi();
                                 string vieras = Joukkueluottelo[j].GetNimi();
                                 Console.Write("Syötä maalimäärä kotijoukkue: ");
@@ -88,7 +115,8 @@ namespace projekti1
                                 int maalitKoti = int.Parse(Console.ReadLine());
                                 Console.Write("Syötä maalimäärä vierasjoukkue: ");
                                 int maalitVieras = int.Parse(Console.ReadLine());
-                                uusiOttelu = new Ottelu(koti, vieras, maalitKoti, maalitVieras);
+                                uusiOttelu = new Ottelu(ottelulaskuri, koti, vieras, maalitKoti, maalitVieras, paivamaara);
+
 
                                 Ottelut.Add(uusiOttelu);
                                 if (maalitKoti == maalitVieras)
@@ -172,7 +200,8 @@ namespace projekti1
 
                         foreach (Ottelu item in Ottelut)
                         {
-                            Console.WriteLine("{0}({1}) VS {2}({3}) Voittaja/lopputulos: {4}", item.getJoukkue1(), item.GetMaalit1(), item.getJoukkue2(), item.GetMaalit2(), item.Getvoittaja());
+                            Console.WriteLine("Kierros:{1} Ottelunro:{1} pvm:{2}\n{3}({4}) VS {5}({6}) Voittaja/lopputulos: {7}",kierros,item.getOtteluID(), item.Getottelupvm() ,item.getJoukkue1(), item.GetMaalit1(), item.getJoukkue2(), item.GetMaalit2(), item.Getvoittaja());
+                            Console.WriteLine();
                         }
                         Console.WriteLine("Jatka painamalla enter: ");
                         Console.ReadLine();
@@ -190,22 +219,32 @@ namespace projekti1
 
                         //LATAA SARJATAULUKKO POSSUUN
 
-                        foreach (Joukkue item in Sarjataulukko)
+                        foreach (Joukkue lataaSarja in Sarjataulukko)
                         {
-                            Tietokanta.LisaaJoukkue(item);
-                        }
-                            foreach (Ottelu item in Ottelut)
-                        {
-                            Tietokanta.LisaaOttelu(item);
+                            Tietokanta.LisaaJoukkue(lataaSarja);
                         }
 
+                        //LATAAA OTTELUTIEDOT POSSUUN
+                        foreach (Ottelu lataaOttelut in Ottelut)
+                        {
+                            Tietokanta.LisaaOttelu(lataaOttelut);
+                        }
+                       
+
+                        foreach (Pelaaja lataapelaajat in pelaajaluettelo)
+                        {
+                            Tietokanta.LisaaPelaajat(lataapelaajat);
+                        }
                         break;
 
+                    case 7:
 
-                        //LATAAA OTTELULISTA POSSUUN
-                    
+                        foreach (Pelaaja item in pelaajaluettelo)
+                        {
+                            Console.WriteLine($"Joukkue: {item.getPeJoukkue()}\nEtunimi: {item.getEtunimi()}\nSukunimi: {item.getSukunimi()}\nIKÄ: {item.getIka()}\nPelipaikka: {item.GETpelipaikka()}");
+                        }
 
-                        
+                        break;                                                               
                         default:
                         break;
                         }
