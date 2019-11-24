@@ -194,18 +194,18 @@ namespace projekti1
                         {
                             Tietokanta.LisaaJoukkue(item);
                         }
-
-                        break;
-
-                    case 7:
-
-                        //LATAAA OTTELULISTA POSSUUN
-                        foreach (Ottelu item in Ottelut)
+                            foreach (Ottelu item in Ottelut)
                         {
                             Tietokanta.LisaaOttelu(item);
                         }
 
                         break;
+
+
+                        //LATAAA OTTELULISTA POSSUUN
+                    
+
+                        
                         default:
                         break;
                         }
