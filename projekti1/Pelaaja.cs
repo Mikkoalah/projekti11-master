@@ -12,25 +12,29 @@ namespace projekti1
         private string _sukunimi;
         private int _ika;
         private string _pelipaikka;
+        private int _pelaajaID;
         
 
 
-        public Pelaaja(string joukkue, int pelinumero, string etunimi, string sukunimi, int ika, string pelipaikka)
+        public Pelaaja(int pelaajaID, string joukkue, int pelinumero, string etunimi, string sukunimi, int ika, string pelipaikka)
         {
+            _pelaajaID = pelaajaID;
              _joukkue = joukkue;
             _pelinumero = pelinumero;
             _etunimi = etunimi;
             _sukunimi = sukunimi;
             _ika = ika;
-            _pelipaikka = pelipaikka;
-          
+            _pelipaikka = pelipaikka;       
+        }
 
+        public int getPelaajaID()
+        {
+            return _pelaajaID;
         }
 
         public int getPelinumero()
         {
-            return _pelinumero;
-                 
+            return _pelinumero;                 
         }
 
         public string getPeJoukkue()

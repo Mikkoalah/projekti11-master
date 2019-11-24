@@ -70,9 +70,10 @@ namespace projekti1
 
         static public void LisaaPelaajat(Pelaaja player)
         {
-            using (insertPelaajat = new NpgsqlCommand("INSERT INTO pelaajalista(joukkue , pelinumero, etunimi, sukunimi, ikä, pelipaikka) " +
-                "VALUES (@joukkue,@pelinumero, @etunimi, @sukunimi, @ikä, @pelipaikka)", connection))
+            using (insertPelaajat = new NpgsqlCommand("INSERT INTO pelaajalista(pelaajaID, joukkue , pelinumero, etunimi, sukunimi, ikä, pelipaikka) " +
+                "VALUES (@pelaajaID,@joukkue,@pelinumero, @etunimi, @sukunimi, @ikä, @pelipaikka)", connection))
             {
+                insertPelaajat.Parameters.AddWithValue("pelaajaID", player.getPelaajaID());
                 insertPelaajat.Parameters.AddWithValue("joukkue", player.getPeJoukkue());
                 insertPelaajat.Parameters.AddWithValue("pelinumero", player.getPelinumero());
                 insertPelaajat.Parameters.AddWithValue("etunimi", player.getEtunimi());
