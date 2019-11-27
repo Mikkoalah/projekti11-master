@@ -64,10 +64,31 @@ namespace projekti1
                 insertOttelu.Parameters.AddWithValue("ottelu_id", match.getOtteluID());
                 insertOttelu.Parameters.AddWithValue("koti", match.getJoukkue1());
                 insertOttelu.Parameters.AddWithValue("vieras", match.getJoukkue2());
-                insertOttelu.Parameters.AddWithValue("maalitkoti", match.GetMaalit1());
-                insertOttelu.Parameters.AddWithValue("maalitvieras", match.GetMaalit2());
-                insertOttelu.Parameters.AddWithValue("voittaja", match.Getvoittaja());
+           
+
+                if (match.getJatkoaikavoittaja() == match.getJoukkue1())
+                {                   
+                    insertOttelu.Parameters.AddWithValue("maalitkoti", match.GetMaalit1()+1);
+                    insertOttelu.Parameters.AddWithValue("maalitvieras", match.GetMaalit2());
+                    insertOttelu.Parameters.AddWithValue("voittaja", match.getJatkoaikavoittaja());
+
+                }
+                if ((match.getJatkoaikavoittaja() == match.getJoukkue2()))
+                {
+                    insertOttelu.Parameters.AddWithValue("maalitkoti", match.GetMaalit1());
+                    insertOttelu.Parameters.AddWithValue("maalitvieras", match.GetMaalit2()+1);                
+                    insertOttelu.Parameters.AddWithValue("voittaja", match.getJatkoaikavoittaja());
+                }
+
+                else
+                {
+                    insertOttelu.Parameters.AddWithValue("maalitkoti", match.GetMaalit1());
+                    insertOttelu.Parameters.AddWithValue("maalitvieras", match.GetMaalit2());
+                    insertOttelu.Parameters.AddWithValue("voittaja", match.Getvoittaja());
+                    // insertOttelu.Parameters.AddWithValue("voittaja", match.Getvoittaja());
+                }
                 insertOttelu.Parameters.AddWithValue("päivämäärä", match.Getottelupvm());
+
                 insertOttelu.ExecuteNonQuery();
             }
         }

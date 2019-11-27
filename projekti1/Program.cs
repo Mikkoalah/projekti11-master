@@ -346,11 +346,11 @@ namespace projekti1
                         break;
                     case 5:
                         //TULOSTETAAN SARJATAULUKKO
-                        Console.WriteLine("Joukkue\t\tO\tV3\tV2\tH1\tH0 \tTM\tPM\tME\tP ");
+                        Console.WriteLine("Joukkue\t\t\tO\tV3\tV2\tH1\tH0 \tTM\tPM\tME\tP ");
                         
                         foreach (Joukkue jarjestys in Sarjataulukko)
                         {
-                            Console.WriteLine($"{jarjestys.GetNimi()}\t\t{jarjestys.GetOtteluLkm()}\t{jarjestys.Get3pVoitot()}\t{jarjestys.Get2pVoitot()}\t {jarjestys.Get1ptappiot()}\t{jarjestys.Get0ptappiot()}\t{jarjestys.GetTehdytMaalit()}" +
+                            Console.WriteLine($"{jarjestys.GetNimi()}\t\t\t{jarjestys.GetOtteluLkm()}\t{jarjestys.Get3pVoitot()}\t{jarjestys.Get2pVoitot()}\t {jarjestys.Get1ptappiot()}\t{jarjestys.Get0ptappiot()}\t{jarjestys.GetTehdytMaalit()}" +
                                 $"\t{jarjestys.GetPaastetytMaalit()}\t{jarjestys.GetTehdytMaalit()-jarjestys.GetPaastetytMaalit()}\t{jarjestys.Getpisteet()} ");
                         }
                         break;

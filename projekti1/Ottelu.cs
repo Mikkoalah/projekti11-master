@@ -15,7 +15,7 @@ namespace projekti1
         private int _j2maalit;
         private DateTime _ottelupvm;
         public string _tasapeli = "tasapeli";
-        private string _jatkoaikavoittaja;
+        private string _jatkoaikavoittaja = "JA/RL";
 
 
         //LUODAAN OTTELU JOSSA ASETETAAN OTTELULLE ID numero, KAKSI JOUKKUETTA JA NIIDEN MAALIMÄÄRÄ SEKÄ PÄIVÄMÄÄRÄ OTTELULLE
@@ -73,6 +73,7 @@ namespace projekti1
             else
             {
                 return _tasapeli;
+                
             }
         }
 
