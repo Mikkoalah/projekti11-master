@@ -115,9 +115,9 @@ namespace projekti1
                                 }
                             //Tarkistetaan että pelaajan pelipaikka annetaan oikeassa muodossa
                             takaisin:
-                                Console.Write("Anna pelipaikka seuraavista --> hyökkääjä/puollustaja/maalivahti: ");
+                                Console.Write("Anna pelipaikka seuraavista --> hyökkääjä/puolustaja/maalivahti: ");
                                 string pelipaikka = Console.ReadLine();
-                                if (pelipaikka == "hyökkääjä" || pelipaikka == "puollustaja" || pelipaikka == "maalivahti")
+                                if (pelipaikka == "hyökkääjä" || pelipaikka == "puolustaja" || pelipaikka == "maalivahti")
                                 {
                                     pelaajat = new Pelaaja(pelaajaID, joukkue, pelinumero, etunimi, sukinimi, ika, pelipaikka);
                                     pelaajaluettelo.Add(pelaajat);
@@ -190,19 +190,20 @@ namespace projekti1
                                 if (maalitKoti == maalitVieras)
                                 {
                                 jatkoaikasyöte:
+                                    Console.WriteLine();
                                     Console.WriteLine("Ottelun varsinainen peliaika päättyy tasan");
-                                    Console.Write("Ilmoita kirjaimella k/v jatkoajan/rangaistuslaukauskisan voittaja\n'k'=koti tai 'v'=vieras = ");                           
+                                    Console.Write("Aseta jatkoajan/rl-kisan voittaja (koti tai vieras) merkillä --> k tai v : ");                           
                                     try
                                     {
                                         jatkoaika = char.Parse(Console.ReadLine());
                                         if (jatkoaika == 'k')
                                         {
-                                            Console.WriteLine("Ottelun voittaja on {0}", uusiOttelu.getJoukkue1());
+                                            Console.WriteLine("Ottelun voittaja jatkoajan jälkeen on {0}", uusiOttelu.getJoukkue1());
                                             uusiOttelu.checkjatkoaikavoittaja(uusiOttelu.getJoukkue1());
                                         }
                                         else if (jatkoaika == 'v')
                                         {
-                                            Console.WriteLine("Ottelun voittaja on {0}", uusiOttelu.getJoukkue2());
+                                            Console.WriteLine("Ottelun voittaja jatkoajan jälkeen on {0}", uusiOttelu.getJoukkue2());
                                             uusiOttelu.checkjatkoaikavoittaja(uusiOttelu.getJoukkue2());
                                         }
                                         else
@@ -223,17 +224,27 @@ namespace projekti1
                                 }
                                 Console.WriteLine(); //TYHJÄ RIVI TULOSTUKSEEN
 
-                                //SYÖTETYN OTTELUN JÄLKEEN VALITAAN EDETÄÄNKÖ Päävalikkoon vai syötetäänkö uusi ottelu
-                                Console.WriteLine("Syötä uusi ottelu = 1: ");
-                                Console.Write("Päävalikkoon pääset syöttämällä = 0: ");
-                                valinta2 = int.Parse(Console.ReadLine());
-                                Console.WriteLine();
-                                if (valinta2 == 0)
-                                {
-                                    goto ulos;
+                            //SYÖTETYN OTTELUN JÄLKEEN VALITAAN EDETÄÄNKÖ Päävalikkoon vai syötetäänkö uusi ottelu
+                            insertvalinta2:
+                                try
+                                {                                                                
+                                    Console.Write("Päävalikkoon pääset syöttämällä: 0\nJatkaaksesi uuteen otteluun anna joku numero: ");
+                                    valinta2 = int.Parse(Console.ReadLine());
+                                    Console.WriteLine();
+                                    if (valinta2 == 1)
+                                    {
+                                        continue;
+                                    }
+                                    else if (valinta2 == 0)
+                                        goto ulos;
                                 }
-                                else
-                                    continue;
+                                                        
+                                catch (Exception)
+                                {
+                                    Console.WriteLine("Virheellinen arvo");
+                                    goto insertvalinta2;
+                                }
+
                             }
                         }
                     ulos:  //jos on valittu ettei haluta syöttää uutta ottelua tämän avulla päästään ulos for silmukasta
@@ -245,32 +256,32 @@ namespace projekti1
                             //LISÄTÄÄN PISTEET VOITTAJALLA
                             foreach (Ottelu aseta in Ottelut)
                             {
-                                //LISÄTÄÄN KOTIJOUKKUEELE 3pistettä voitosta
-                                if (aseta.GetMaalit1() > aseta.GetMaalit2() && aseta.Getvoittaja() == laske.GetNimi())
+                                //LISÄTÄÄN 3pistettä Varsinaisen peliajan voittajalle
+                                if (aseta.Getvoittaja() == laske.GetNimi())
                                 {
                                     laske.SetPisteet(3);
-                                }
-
-                                //LISÄTÄÄN VIERASJOUKKUUEELLE 3pistettä voitosta                           
-                                if (aseta.GetMaalit2() > aseta.GetMaalit1() && aseta.Getvoittaja() == laske.GetNimi())
-                                {
-                                    laske.SetPisteet(3);
-                                }
+                                    laske.Set3pVoitot(1);
+                                }                        
                                 //ASETAAN PISTE Kotijoukkueelle jos varsinainen peliaika tasan.
                                 if (aseta.GetMaalit1() == aseta.GetMaalit2() && aseta.getJoukkue1() == laske.GetNimi())
                                 {
                                     laske.SetPisteet(1);
+                                    laske.set1pTappio(1);
                                 }
                                 //ASETAAN PISTE vierasjoukkueelle jos varsinainen peliaika tasan.
                                 if (aseta.GetMaalit1() == aseta.GetMaalit2() && aseta.getJoukkue2() == laske.GetNimi())
                                 {
                                     laske.SetPisteet(1);
+                                    laske.set1pTappio(1);
                                 }
                                 //LISÄTÄÄN piste jatkoaikavoittajalle                            
                                 if (aseta.GetMaalit1() == aseta.GetMaalit2() && aseta.getJatkoaikavoittaja() == laske.GetNimi())
                                 {
-                                    laske.SetPisteet(1);
-                                    laske.SetTehdytMaalit(1); //Lisätään jatkoaika/rankaistuslaukauskilpailun maali tehtyihin maaleihin                                 
+                                    laske.SetPisteet(1);       //LISÄTÄÄN PISTE JATKOAIKA VOITOSTA
+                                    laske.SetTehdytMaalit(1); //Lisätään jatkoaika/rankaistuslaukauskilpailun maali tehtyihin maaleihin        
+                                    laske.set2pVoitot(1);    //LISÄTÄÄN 2pisteen voitto joukkueelle
+                                    laske.set1pTappio(-1);   // VÄHENNETÄÄn JATKOAIKA VOITTAJALTA 1kpl 1pisteen tappiota koska se joudutaan aimmeammassa vaiheessa asettaa molemmille joukkueille
+
                                 }
                                 //LISÄTÄÄN OTTELU lukumäärää pelaaville joukkueille
                                 if (aseta.getJoukkue1() == laske.GetNimi() || aseta.getJoukkue2() == laske.GetNimi())
@@ -308,6 +319,7 @@ namespace projekti1
                                 {
                                     laske.SetPaastetytMaalit(1);
                                 }
+                                laske.set0pTappio(); // ASETETAAN 0pisteen tappiot
                             }
                         }
 
@@ -331,11 +343,12 @@ namespace projekti1
                         break;
                     case 5:
                         //TULOSTETAAN SARJATAULUKKO
-                        Console.WriteLine("Joukkue  \t Ottelut \t   Pisteet \t Tehdyt Maalit \t Päästetytmaalit \t Maalierotus");
+                        Console.WriteLine("Joukkue\t\tO\tV3\tV2\tH1\tH0 \tTM\tPM\tME\tP ");
                         Sarjataulukko.Sort();
                         foreach (Joukkue jarjestys in Sarjataulukko)
                         {
-                            Console.WriteLine($"{jarjestys.GetNimi()}\t\t{jarjestys.GetOtteluLkm()}\t\t{jarjestys.Getpisteet()}\t\t{jarjestys.GetTehdytMaalit()}\t\t {jarjestys.GetPaastetytMaalit()}\t\t{jarjestys.GetTehdytMaalit() - jarjestys.GetPaastetytMaalit()} ");
+                            Console.WriteLine($"{jarjestys.GetNimi()}\t\t{jarjestys.GetOtteluLkm()}\t{jarjestys.Get3pVoitot()}\t{jarjestys.Get2pVoitot()}\t {jarjestys.Get1ptappiot()}\t{jarjestys.Get0ptappiot()}\t{jarjestys.GetTehdytMaalit()}" +
+                                $"\t{jarjestys.GetPaastetytMaalit()}\t{jarjestys.GetTehdytMaalit()-jarjestys.GetPaastetytMaalit()}\t{jarjestys.Getpisteet()} ");
                         }
                         break;
 
@@ -355,7 +368,6 @@ namespace projekti1
                     case 7:
 
                         //LATAA tiedot Tietokantaan 
-
                         // Käyttäjätunnus: postgres
                         // Salasana: Grespost99
                         // Tietokanta Sarjataulukko
@@ -365,15 +377,11 @@ namespace projekti1
                             foreach (Joukkue lataaSarja in Sarjataulukko)
                             {
                                 Tietokanta.LisaaJoukkue(lataaSarja);
-                            }
-
-                            //LATAAA OTTELUTIEDOT POSSUUN
+                            }                          
                             foreach (Ottelu lataaOttelut in Ottelut)
                             {
                                 Tietokanta.LisaaOttelu(lataaOttelut);
                             }
-
-
                             foreach (Pelaaja lataapelaajat in pelaajaluettelo)
                             {
                                 Tietokanta.LisaaPelaajat(lataapelaajat);
@@ -388,8 +396,6 @@ namespace projekti1
                         }
 
                         break;
-
-
                     default:
                         break;
                 }
