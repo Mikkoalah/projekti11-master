@@ -12,7 +12,7 @@ namespace projekti1
         private const string HOST = "localhost";
         private const string USERNAME = "postgres";
         private const string PASSWORD = "Grespost99";
-        private const string DB = "Sarjataulukko";
+        private const string DB = "Sarjataulukko_2019";
         private const string CONNECTION_STRING = "Host=" + HOST + ";Username=" + USERNAME + ";Password=" + PASSWORD + ";Database=" + DB;
         // Connection is private and gets opened in the constructor and used in all the db transactions
 
@@ -40,15 +40,19 @@ namespace projekti1
 
         static public void LisaaJoukkue(Joukkue team)
         {
-            using (insertJoukkue = new NpgsqlCommand("INSERT INTO taulukko(joukkue, ottelut, pisteet, tehdytmaalit, päästetytmaalit, maaliero) " +
-                "VALUES (@joukkue, @ottelut, @pisteet, @tehdytmaalit, @päästetytmaalit, @maaliero)", connection))
+            using (insertJoukkue = new NpgsqlCommand("INSERT INTO taulukko(joukkue, o, v3, v2, h1, h0, tm , pm, me, p) " +
+                "VALUES (@joukkue, @o, @v3, @v2, @h1, @h0, @tm,@pm, @me, @p)", connection))
             {
                 insertJoukkue.Parameters.AddWithValue("joukkue", team.GetNimi());
-                insertJoukkue.Parameters.AddWithValue("ottelut", team.GetOtteluLkm());
-                insertJoukkue.Parameters.AddWithValue("pisteet", team.Getpisteet());
-                insertJoukkue.Parameters.AddWithValue("tehdytmaalit", team.GetTehdytMaalit());
-                insertJoukkue.Parameters.AddWithValue("päästetytmaalit", team.GetPaastetytMaalit());
-                insertJoukkue.Parameters.AddWithValue("maaliero", team.GetTehdytMaalit() - team.GetPaastetytMaalit());
+                insertJoukkue.Parameters.AddWithValue("o", team.GetOtteluLkm());
+                insertJoukkue.Parameters.AddWithValue("v3", team.Get3pVoitot());
+                insertJoukkue.Parameters.AddWithValue("v2", team.Get2pVoitot());
+                insertJoukkue.Parameters.AddWithValue("h1", team.Get1ptappiot());
+                insertJoukkue.Parameters.AddWithValue("h0", team.Get0ptappiot());
+                insertJoukkue.Parameters.AddWithValue("tm", team.GetTehdytMaalit());
+                insertJoukkue.Parameters.AddWithValue("pm", team.GetPaastetytMaalit());
+                insertJoukkue.Parameters.AddWithValue("me", team.GetTehdytMaalit() - team.GetPaastetytMaalit());
+                insertJoukkue.Parameters.AddWithValue("p", team.Getpisteet());
                 insertJoukkue.ExecuteNonQuery();
             }
         }
@@ -70,15 +74,15 @@ namespace projekti1
 
         static public void LisaaPelaajat(Pelaaja player)
         {
-            using (insertPelaajat = new NpgsqlCommand("INSERT INTO pelaajalista(pelaajaID, joukkue , pelinumero, etunimi, sukunimi, ikä, pelipaikka) " +
-                "VALUES (@pelaajaID,@joukkue,@pelinumero, @etunimi, @sukunimi, @ikä, @pelipaikka)", connection))
+            using (insertPelaajat = new NpgsqlCommand("INSERT INTO pelaajalista(pelaajaID, joukkue , pelinumero, etunimi, sukunimi, syntymävuosi, pelipaikka) " +
+                "VALUES (@pelaajaID,@joukkue,@pelinumero, @etunimi, @sukunimi, @syntymävuosi, @pelipaikka)", connection))
             {
                 insertPelaajat.Parameters.AddWithValue("pelaajaID", player.getPelaajaID());
                 insertPelaajat.Parameters.AddWithValue("joukkue", player.getPeJoukkue());
                 insertPelaajat.Parameters.AddWithValue("pelinumero", player.getPelinumero());
                 insertPelaajat.Parameters.AddWithValue("etunimi", player.getEtunimi());
                 insertPelaajat.Parameters.AddWithValue("sukunimi", player.getSukunimi());
-                insertPelaajat.Parameters.AddWithValue("ikä", player.getIka());
+                insertPelaajat.Parameters.AddWithValue("syntymävuosi", player.getIka());
                 insertPelaajat.Parameters.AddWithValue("pelipaikka", player.GETpelipaikka());
                 insertPelaajat.ExecuteNonQuery();
             }

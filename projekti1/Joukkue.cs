@@ -24,12 +24,21 @@ namespace projekti1
         {
             _nimi = nimi;
         }
-        //SARJATAULUKON JÄRJESTÄMINEN PISTEIDEN PERUSTEELLA
+        //SARJATAULUKON JÄRJESTÄMINEN
         public int CompareTo(Joukkue other)
         {
+            //JOS PISTEET ON TASAN JÄRJESTETÄÄN TAULUKKO VOITTOJEN YHTEISMÄÄRÄN PERUSTEELLA
+            if (_pisteet == other._pisteet)
+            {
+                //JOS PISTEET SEKÄ VOITOT ON TASAN JÄRESTETÄÄN SARJATAULUKKO MAALIEROTUKSEN PERUSTEELLA
+                if ((_3pvoitot + _2pvoitot) == (other._3pvoitot + other._2pvoitot))
+                {
+                    return -(_tehdytmaalit - _paastetytmaalit) + (other._tehdytmaalit - other._paastetytmaalit);
+                }
+                return -(_3pvoitot + _2pvoitot) + (other._3pvoitot + other._2pvoitot);
+            }
             return -_pisteet + other._pisteet;
         }
-
         //PALAUTTAA JOUKKUEEN NIMEN
         public string GetNimi()
         {

@@ -10,20 +10,20 @@ namespace projekti1
         private int _pelinumero;
         private string _etunimi;
         private string _sukunimi;
-        private int _ika;
+        private int _syntymavuosi;
         private string _pelipaikka;
         private int _pelaajaID;
 
 
 
-        public Pelaaja(int pelaajaID, string joukkue, int pelinumero, string etunimi, string sukunimi, int ika, string pelipaikka)
+        public Pelaaja(int pelaajaID, string joukkue, int pelinumero, string etunimi, string sukunimi, int syntymavuosi, string pelipaikka)
         {
             _pelaajaID = pelaajaID;
             _joukkue = joukkue;
             _pelinumero = pelinumero;
             _etunimi = etunimi;
             _sukunimi = sukunimi;
-            _ika = ika;
+            _syntymavuosi = syntymavuosi;
             _pelipaikka = pelipaikka;
         }
 
@@ -53,7 +53,7 @@ namespace projekti1
         }
         public int getIka()
         {
-            return _ika;
+            return _syntymavuosi;
         }
         public string GETpelipaikka()
         {

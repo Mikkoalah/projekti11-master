@@ -90,7 +90,7 @@ namespace projekti1
                             }
                             for (int j = 0; j < pelaajamaara; j++)
                             {
-                                int pelinumero, ika;
+                                int pelinumero, syntymavuosi;
                                 string joukkue, etunimi, sukinimi;
                                 pelaajaID++;
                             insertpelaaja:
@@ -104,8 +104,8 @@ namespace projekti1
                                     etunimi = (Console.ReadLine());
                                     Console.Write("Anna Sukunimi: ");
                                     sukinimi = Console.ReadLine();
-                                    Console.Write("Anna ikä: ");
-                                    ika = int.Parse(Console.ReadLine());
+                                    Console.Write("Anna syntymävuosi: ");
+                                    syntymavuosi = int.Parse(Console.ReadLine());
                                 }
                                 catch (Exception)
                                 {
@@ -119,7 +119,7 @@ namespace projekti1
                                 string pelipaikka = Console.ReadLine();
                                 if (pelipaikka == "hyökkääjä" || pelipaikka == "puolustaja" || pelipaikka == "maalivahti")
                                 {
-                                    pelaajat = new Pelaaja(pelaajaID, joukkue, pelinumero, etunimi, sukinimi, ika, pelipaikka);
+                                    pelaajat = new Pelaaja(pelaajaID, joukkue, pelinumero, etunimi, sukinimi, syntymavuosi, pelipaikka);
                                     pelaajaluettelo.Add(pelaajat);
                                     Console.WriteLine();
                                 }
@@ -149,7 +149,16 @@ namespace projekti1
                                 }
                                 else
                                     ottelulaskuri++; //LASKETAAN juoksevalla numeroinnilla otteluille ID
-                                syotapvm:
+                            
+
+                            insertottelu:
+                                string koti, vieras;
+                                int maalitKoti, maalitVieras;
+                                char jatkoaika;
+                                Console.WriteLine("ottelunumero:{0} = {1} vs {2}", ottelulaskuri, Joukkueluottelo[i].GetNimi(), Joukkueluottelo[j].GetNimi());
+                                koti = Joukkueluottelo[i].GetNimi();
+                                vieras = Joukkueluottelo[j].GetNimi();
+                            syotapvm:
                                 try
                                 {
                                     Console.Write("Anna ottelulle päivämäärä muotoa DD.MM.YYYY = ");
@@ -160,14 +169,7 @@ namespace projekti1
                                     Console.WriteLine("virheellinen syöte");
                                     goto syotapvm;
                                 }
-
-                            insertottelu:
-                                string koti, vieras;
-                                int maalitKoti, maalitVieras;
-                                char jatkoaika;
-                                Console.WriteLine("ottelunumero:{0} = {1} vs {2}", ottelulaskuri, Joukkueluottelo[i].GetNimi(), Joukkueluottelo[j].GetNimi());
-                                koti = Joukkueluottelo[i].GetNimi();
-                                vieras = Joukkueluottelo[j].GetNimi();
+                                
                                 try
                                 {
                                     Console.Write("Syötä varsinaisen peliajan maalimäärä kotijoukkueelle: ");
@@ -322,6 +324,7 @@ namespace projekti1
                                 laske.set0pTappio(); // ASETETAAN 0pisteen tappiot
                             }
                         }
+                        Sarjataulukko.Sort(); //JÄRJESTETÄÄN SARJATAUKUKKO
 
                         break;
                     //Tulostaa listan pelatuistat otteluista
@@ -344,7 +347,7 @@ namespace projekti1
                     case 5:
                         //TULOSTETAAN SARJATAULUKKO
                         Console.WriteLine("Joukkue\t\tO\tV3\tV2\tH1\tH0 \tTM\tPM\tME\tP ");
-                        Sarjataulukko.Sort();
+                        
                         foreach (Joukkue jarjestys in Sarjataulukko)
                         {
                             Console.WriteLine($"{jarjestys.GetNimi()}\t\t{jarjestys.GetOtteluLkm()}\t{jarjestys.Get3pVoitot()}\t{jarjestys.Get2pVoitot()}\t {jarjestys.Get1ptappiot()}\t{jarjestys.Get0ptappiot()}\t{jarjestys.GetTehdytMaalit()}" +
@@ -356,7 +359,7 @@ namespace projekti1
 
                         foreach (Pelaaja item in pelaajaluettelo)
                         {
-                            Console.WriteLine($"Nimi:{item.getEtunimi()} {item.getSukunimi()}  IKÄ:{item.getIka()}\nJoukkue:{item.getPeJoukkue()}\nPelipaikka:{item.GETpelipaikka()}");
+                            Console.WriteLine($"Nimi:{item.getEtunimi()} {item.getSukunimi()}  Syntymävuosi:{item.getIka()}\nJoukkue:{item.getPeJoukkue()}\nPelipaikka:{item.GETpelipaikka()}");
 
                             //  Console.WriteLine($"Joukkue: {item.getPeJoukkue()}\nEtunimi: {item.getEtunimi()}\nSukunimi: {item.getSukunimi()}\nIKÄ: {item.getIka()}\nPelipaikka: {item.GETpelipaikka()}");
                             Console.WriteLine();
