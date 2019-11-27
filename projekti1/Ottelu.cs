@@ -15,6 +15,7 @@ namespace projekti1
         private int _j2maalit;
         private DateTime _ottelupvm;
         public string _tasapeli = "tasapeli";
+        private string _jatkoaikavoittaja;
 
 
         //LUODAAN OTTELU JOSSA ASETETAAN KAKSI JOUKKUETTA JA NIIDEN MAALIMÄÄRÄ
@@ -27,7 +28,7 @@ namespace projekti1
             _j1maalit = j1maalit;
             _j2maalit = j2maalit;
             _ottelupvm = ottelupvm;
-            
+
         }
 
         public int getOtteluID()
@@ -60,6 +61,8 @@ namespace projekti1
             return _ottelupvm;
         }
 
+
+
         public string Getvoittaja()
         {
             if (_j1maalit > _j2maalit)
@@ -74,8 +77,24 @@ namespace projekti1
             {
                 return _tasapeli;
             }
-
-
         }
+
+        public void checkjatkoaikavoittaja(string jatkoaikavoittaja)
+
+        {
+            _jatkoaikavoittaja = jatkoaikavoittaja;
+        }
+
+
+
+
+        public string getJatkoaikavoittaja()
+        {
+
+            return _jatkoaikavoittaja;
+        }
+
     }
+
 }
+

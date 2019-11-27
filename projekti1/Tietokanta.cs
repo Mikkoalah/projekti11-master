@@ -36,7 +36,7 @@ namespace projekti1
         }
 
 
-      
+
 
         static public void LisaaJoukkue(Joukkue team)
         {
@@ -44,11 +44,11 @@ namespace projekti1
                 "VALUES (@joukkue, @ottelut, @pisteet, @tehdytmaalit, @päästetytmaalit, @maaliero)", connection))
             {
                 insertJoukkue.Parameters.AddWithValue("joukkue", team.GetNimi());
-               insertJoukkue.Parameters.AddWithValue("ottelut", team.GetOtteluLkm());
-               insertJoukkue.Parameters.AddWithValue("pisteet", team.Getpisteet());
+                insertJoukkue.Parameters.AddWithValue("ottelut", team.GetOtteluLkm());
+                insertJoukkue.Parameters.AddWithValue("pisteet", team.Getpisteet());
                 insertJoukkue.Parameters.AddWithValue("tehdytmaalit", team.GetTehdytMaalit());
                 insertJoukkue.Parameters.AddWithValue("päästetytmaalit", team.GetPaastetytMaalit());
-                insertJoukkue.Parameters.AddWithValue("maaliero", team.GetTehdytMaalit()-team.GetPaastetytMaalit());
+                insertJoukkue.Parameters.AddWithValue("maaliero", team.GetTehdytMaalit() - team.GetPaastetytMaalit());
                 insertJoukkue.ExecuteNonQuery();
             }
         }
@@ -62,7 +62,7 @@ namespace projekti1
                 insertOttelu.Parameters.AddWithValue("vieras", match.getJoukkue2());
                 insertOttelu.Parameters.AddWithValue("maalitkoti", match.GetMaalit1());
                 insertOttelu.Parameters.AddWithValue("maalitvieras", match.GetMaalit2());
-               insertOttelu.Parameters.AddWithValue("voittaja", match.Getvoittaja());
+                insertOttelu.Parameters.AddWithValue("voittaja", match.Getvoittaja());
                 insertOttelu.Parameters.AddWithValue("päivämäärä", match.Getottelupvm());
                 insertOttelu.ExecuteNonQuery();
             }
@@ -79,7 +79,7 @@ namespace projekti1
                 insertPelaajat.Parameters.AddWithValue("etunimi", player.getEtunimi());
                 insertPelaajat.Parameters.AddWithValue("sukunimi", player.getSukunimi());
                 insertPelaajat.Parameters.AddWithValue("ikä", player.getIka());
-                insertPelaajat.Parameters.AddWithValue("pelipaikka", player.GETpelipaikka());               
+                insertPelaajat.Parameters.AddWithValue("pelipaikka", player.GETpelipaikka());
                 insertPelaajat.ExecuteNonQuery();
             }
         }

@@ -7,13 +7,15 @@ using System.Text;
 
 namespace projekti1
 {
-    class Joukkue: IComparable<Joukkue>  // IComparable vaaditaan että listaa pystyy järjestämään
+    class Joukkue : IComparable<Joukkue>  // IComparable vaaditaan että listaa pystyy järjestämään
     {
         private string _nimi;
         private int _otteluLkm = 0;
         private int _pisteet = 0;
         private int _tehdytmaalit = 0;
-        private int _paastetytmaalit = 0;    
+        private int _paastetytmaalit = 0;
+        public List<Joukkue> Sarjataulukko = new List<Joukkue>();
+        public List<Ottelu> Ottelut = new List<Ottelu>();
         public Joukkue(string nimi)
         {
             _nimi = nimi;
@@ -21,7 +23,7 @@ namespace projekti1
         //SARJATAULUKON JÄRJESTÄMINEN PISTEIDEN PERUSTEELLA
         public int CompareTo(Joukkue other)
         {
-            return - _pisteet + other._pisteet;           
+            return -_pisteet + other._pisteet;
         }
         public string GetNimi()
         {
@@ -46,18 +48,18 @@ namespace projekti1
         public void SetPisteet(int pisteet)
         {
             _pisteet = _pisteet + pisteet;
-            
+
         }
         public void SetOtteluLKM(int otteluLKM)
         {
             _otteluLkm = _otteluLkm + otteluLKM;
-            
+
         }
 
         public void SetTehdytMaalit(int Tehdytmaalit)
         {
             _tehdytmaalit = _tehdytmaalit + Tehdytmaalit;
-            
+
         }
         public void SetPaastetytMaalit(int Paastetytmaalit)
         {
@@ -69,46 +71,15 @@ namespace projekti1
 
 
 
-
-
     }
-
-
-
-
-
-    }
-
-
-    /*  if (this.nimi.equals(((Ottelu)array[i]).getJoukkue1().getNimi()))
-      {
-          this._tehdytMaalit += ((Ottelu)array[i]).getJoukkue1maalit();
-          this._paastetytMaalit += ((Ottelu)array[i]).getJoukkue2maalit();
-
-      }
-      */
-
-
-
-    
-
-        
-
-
-/*
-public int SetPisteet()
-{
-
 }
 
-*/
 
 
 
 
 
 
-            
-        
-        
-    
+
+
+
