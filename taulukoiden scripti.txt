@@ -1,0 +1,42 @@
+
+-- Table structure
+CREATE TABLE taulukko (
+  joukkue varchar NOT NULL,
+  o int,
+  v3 int,
+  v2 int,
+h1 int,
+h0 int,
+tm int,
+pm int,
+me int,
+p int,
+  PRIMARY KEY (joukkue)
+);
+
+-- Table structure
+CREATE TABLE ottelut (
+ottelu_id int,
+  koti varchar NOT NULL,
+vieras varchar NOT NULL,
+  maalitkoti int,
+  maalitvieras int,
+voittaja varchar NOT NULL,
+p‰iv‰m‰‰r‰ date,
+ PRIMARY KEY (ottelu_id)
+);
+
+
+-- Table structure
+CREATE TABLE pelaajalista (
+pelaajaID int NOT NULL,
+joukkue varchar,
+pelinumero int NOT NULL,
+etunimi varchar NOT NULL,
+sukunimi varchar NOT NULL,
+syntym‰vuosi int,
+pelipaikka varchar,
+PRIMARY KEY (pelaajaID)
+);
+
+
