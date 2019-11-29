@@ -1,0 +1,40 @@
+﻿Hakuja tietokanta projektiin.
+
+
+1. Hakee kaikki tasapelit ottelu taulukosta
+
+SELECT koti, vieras,maalitkoti,maalitvieras,voittaja,päivämäärä
+FROM ottelut
+where voittaja='tasapeli'
+
+2. Järjästää ottelut päivämäärän perusteella (vanhin ensin)
+
+SELECT koti, vieras, voittaja, päivämäärä
+FROM ottelut
+ORDER BY päivämäärä
+
+3. Lasketaan otteluissa tulleiden maalien keskiarvo
+
+SELECT SUM(maalitkoti+maalitvieras) / COUNT(ottelu_id)
+FROM ottelut
+
+
+4. Etsii pelaajalistasta kaikki vuonna 2000 tai sen jälkeen syntyneet pelaajat
+SELECT joukkue, etunimi, sukunimi, syntymävuosi
+FROM pelaajalista
+WHERE syntymävuosi >= 2000 
+
+5. Etsii pelaajalistasta kaikki pelajaat joiden pelinumero on 10.
+
+SELECT joukkue, pelinumero, etunimi, sukunimi
+FROM pelaajalista
+WHERE pelinumero  = 10
+
+6. Etsii pelaajalistasta kaikki pelaajat jotka ovat syntyneet 1990-1999 ja pelipaikka on hyökkääjä
+järjestus sukunimen perusteella öökkös järjestyksessä
+
+SELECT joukkue, etunimi, sukunimi, syntymävuosi, pelipaikka
+FROM pelaajalista
+WHERE pelipaikka = 'hyökkääjä' AND syntymävuosi  BETWEEN 1990  AND 1999 
+ORDER BY sukunimi DESC
+
