@@ -26,6 +26,7 @@ namespace projekti1
             Joukkue joukkueet;
             do
             {
+				valikko:
                 Console.WriteLine();
                 Console.WriteLine("1 - Syötä sarjaan osallistuvat joukkueet");
                 Console.WriteLine("2 - Syötä joukkueen pelaajalista:");
@@ -36,7 +37,16 @@ namespace projekti1
                 Console.WriteLine("7 - Lataa tiedot tietokantaan");
                 Console.WriteLine("8 - Tyhjennä kaikki tiedot sovelluksesta");
                 Console.WriteLine("0 - Lopeta");
-                valinta = int.Parse(Console.ReadLine());
+				try
+				{
+					valinta = int.Parse(Console.ReadLine());
+				}
+				catch (Exception)
+				{
+
+					goto valikko;
+				}
+
                 switch (valinta)
 
                 {
@@ -354,6 +364,10 @@ namespace projekti1
                             Console.WriteLine($"{jarjestys.GetNimi()}\t\t\t{jarjestys.GetOtteluLkm()}\t{jarjestys.Get3pVoitot()}\t{jarjestys.Get2pVoitot()}\t {jarjestys.Get1ptappiot()}\t{jarjestys.Get0ptappiot()}\t{jarjestys.GetTehdytMaalit()}" +
                                 $"\t{jarjestys.GetPaastetytMaalit()}\t{jarjestys.GetTehdytMaalit()-jarjestys.GetPaastetytMaalit()}\t{jarjestys.Getpisteet()} ");
                         }
+						Console.WriteLine("\n O=ottelut: V3=voitto : V2=jatkoaikavoitto: H1=jatkoaika tappio: H0=tappio: TM=tehdytmaalit\n" +
+							"PM=päästetyt maalit: P=pisteet");
+						Console.WriteLine("Jatka painamalla enter:");
+						Console.ReadLine();
                         break;
 
                     case 6:
@@ -361,11 +375,10 @@ namespace projekti1
                         foreach (Pelaaja item in pelaajaluettelo)
                         {
                             Console.WriteLine($"Nimi:{item.getEtunimi()} {item.getSukunimi()}  Syntymävuosi:{item.getIka()}\nJoukkue:{item.getPeJoukkue()}\nPelipaikka:{item.GETpelipaikka()}");
-
-                            //  Console.WriteLine($"Joukkue: {item.getPeJoukkue()}\nEtunimi: {item.getEtunimi()}\nSukunimi: {item.getSukunimi()}\nIKÄ: {item.getIka()}\nPelipaikka: {item.GETpelipaikka()}");
                             Console.WriteLine();
                         }
-
+						Console.WriteLine("Jatka painamalla enter:");
+						Console.ReadLine();
                         break;
 
 
@@ -406,7 +419,7 @@ namespace projekti1
                         Sarjataulukko.Clear();
                         Joukkueluottelo.Clear();
                         pelaajaluettelo.Clear();
-                        Console.WriteLine("KAiki tiedot tyhjätty, jatka painamalla enter: ");
+                        Console.WriteLine("Kaikki tiedot tyhjätty, jatka painamalla enter: ");
                         Console.ReadLine();
 
 
