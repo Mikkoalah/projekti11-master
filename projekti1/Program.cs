@@ -364,8 +364,8 @@ namespace projekti1
                             Console.WriteLine($"{jarjestys.GetNimi()}\t\t\t{jarjestys.GetOtteluLkm()}\t{jarjestys.Get3pVoitot()}\t{jarjestys.Get2pVoitot()}\t {jarjestys.Get1ptappiot()}\t{jarjestys.Get0ptappiot()}\t{jarjestys.GetTehdytMaalit()}" +
                                 $"\t{jarjestys.GetPaastetytMaalit()}\t{jarjestys.GetTehdytMaalit()-jarjestys.GetPaastetytMaalit()}\t{jarjestys.Getpisteet()} ");
                         }
-						Console.WriteLine("\n O=ottelut: V3=voitto : V2=jatkoaikavoitto: H1=jatkoaika tappio: H0=tappio: TM=tehdytmaalit\n" +
-							"PM=päästetyt maalit: P=pisteet");
+						Console.WriteLine("\nO=ottelut: V3=voitto : V2=jatkoaikavoitto: H1=jatkoaikatappio: H0=tappio: TM=tehdytmaalit\n" +
+							"PM=päästetyt maalit: P=pisteet\n");
 						Console.WriteLine("Jatka painamalla enter:");
 						Console.ReadLine();
                         break;

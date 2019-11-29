@@ -12,7 +12,7 @@ namespace projekti1
         private const string HOST = "localhost";
         private const string USERNAME = "postgres";
         private const string PASSWORD = "Grespost99";
-        private const string DB = "Sarjataulukko_2019";
+        private const string DB = "Sarjataulukko";
         private const string CONNECTION_STRING = "Host=" + HOST + ";Username=" + USERNAME + ";Password=" + PASSWORD + ";Database=" + DB;
         // Connection is private and gets opened in the constructor and used in all the db transactions
 
