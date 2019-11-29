@@ -35,7 +35,6 @@ namespace projekti1
                 Console.WriteLine("6 - Tulosta Lista pelaajista");
                 Console.WriteLine("7 - Lataa tiedot tietokantaan");
                 Console.WriteLine("8 - Tyhjennä kaikki tiedot sovelluksesta");
-
                 Console.WriteLine("0 - Lopeta");
                 valinta = int.Parse(Console.ReadLine());
                 switch (valinta)
