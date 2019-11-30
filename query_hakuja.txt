@@ -38,3 +38,25 @@ FROM pelaajalista
 WHERE pelipaikka = 'hyökkääjä' AND syntymävuosi  BETWEEN 1990  AND 1999 
 ORDER BY sukunimi DESC
 
+7. Valitsee taulukosta kaikki puolustajat ja järjestää ne järjestykseen pelinumeron perusteella, lisäksi oletetaan että pelaaja on pelannut kaikki ottelut, joten haetaan LEFT JOIN komennolla sarjataulukosta joukkueen pelatut pelit ja nimetään myös AS komennolle columin 'o' nimi 'pelatut ottelut'
+
+SELECT taulukko.o AS "pelatut ottelut", pelaajalista.joukkue, pelaajalista.etunimi, pelaajalista.sukunimi, pelaajalista.pelipaikka, pelaajalista.pelinumero
+FROM taulukko LEFT JOIN pelaajalista
+ON taulukko.joukkue = pelaajalista.joukkue
+WHERE pelipaikka = 'puolustaja'
+ORDER BY pelinumero
+
+8. LASKEE pelaajalistasta jokaisen joukkueen pelaajamäärän ja luo uuden columin "kpl" ja järjestää sen suurimmasta pienimpään.
+
+SELECT joukkue, COUNT(pelaajaid) AS "kpl"
+FROM pelaajalista
+GROUP BY joukkue
+ORDER BY kpl DESC
+
+9.
+
+
+
+
+
+
