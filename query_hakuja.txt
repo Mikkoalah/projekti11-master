@@ -56,7 +56,14 @@ FROM pelaajalista
 GROUP BY joukkue
 ORDER BY kpl DESC
 
-9.
+9. HAKEE ja ryhmittelee ottelut listasta lopputulokset ja järjestää lopuksi kenellä eniten voittoja. 
+SELECT voittaja, COUNT(voittaja) AS "Voitot"
+FROM ottelut
+GROUP BY voittaja
+ORDER BY "Voitot" DESC
+
+
+
 
 
 
