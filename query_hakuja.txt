@@ -19,10 +19,13 @@ SELECT SUM(maalitkoti+maalitvieras) / COUNT(ottelu_id)
 FROM ottelut
 
 
-4. Etsii pelaajalistasta kaikki vuonna 2000 tai sen jälkeen syntyneet pelaajat
+4. Etsii pelaajalistasta kaikki vuonna 2000 tai jälkeen syntyneet sekä kaikki 1980-luvulla syntyneet pelaajat ja järjestää listann nuorimmasta vanhimpaan.
+
 SELECT joukkue, etunimi, sukunimi, syntymävuosi
 FROM pelaajalista
-WHERE syntymävuosi >= 2000 
+WHERE syntymävuosi >= 2000 OR syntymävuosi BETWEEN 1980 AND 1989
+ORDER BY syntymävuosi DESC
+
 
 5. Etsii pelaajalistasta kaikki pelajaat joiden pelinumero on 10.
 
