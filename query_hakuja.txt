@@ -1,7 +1,7 @@
 ﻿Hakuja tietokanta projektiin.
 
 
-1. Hakee kaikki tasapelit ottelu taulukosta
+1. Hakee kaikki tasapelit ottelut taulukosta
 
 SELECT koti, vieras,maalitkoti,maalitvieras,voittaja,päivämäärä
 FROM ottelut
@@ -62,7 +62,13 @@ FROM ottelut
 GROUP BY voittaja
 ORDER BY "Voitot" DESC
 
+10. Hakee kaikki joukkueet kellä on enemmän kuin 10 pelaajaa ja järjestaa ne suurimasta pienimpään
 
+SELECT joukkue, COUNT(pelaajaid) AS "pelaajat"
+FROM pelaajalista
+GROUP by joukkue
+HAVING COUNT(pelaajaid) > 10
+ORDER BY pelaajat DESC
 
 
 
