@@ -14,19 +14,18 @@ namespace projekti1
         private const string PASSWORD = "Grespost99";
         private const string DB = "Sarjataulukko";
         private const string CONNECTION_STRING = "Host=" + HOST + ";Username=" + USERNAME + ";Password=" + PASSWORD + ";Database=" + DB;
-        // Connection is private and gets opened in the constructor and used in all the db transactions
-
         static private NpgsqlConnection connection;
-        //static private NpgsqlCommand selectAllCars = null;
         static private NpgsqlCommand insertJoukkue = null;
         static private NpgsqlCommand insertOttelu = null;
         static private NpgsqlCommand insertPelaajat = null;
+        //   static private NpgsqlCommand selectTaulukko = null;
+
         static Tietokanta()
         {
             try
             {
                 connection = new NpgsqlConnection(CONNECTION_STRING);
-                connection.Open(); // Here we open connection
+                connection.Open();
             }
             catch (NpgsqlException ex)
             {
@@ -34,10 +33,7 @@ namespace projekti1
             }
 
         }
-
-
-
-
+        // LISÄTÄÄN JOUKKUEIDEN TIEDOT TIETOKANNAN TAULUKKOON
         static public void LisaaJoukkue(Joukkue team)
         {
             using (insertJoukkue = new NpgsqlCommand("INSERT INTO taulukko(joukkue, o, v3, v2, h1, h0, tm , pm, me, p) " +
@@ -56,6 +52,8 @@ namespace projekti1
                 insertJoukkue.ExecuteNonQuery();
             }
         }
+
+        //LISÄTÄÄN PELATUT OTTELUT TIETOKANNAN TAULUKKOON
         static public void LisaaOttelu(Ottelu match)
         {
             using (insertOttelu = new NpgsqlCommand("INSERT INTO ottelut(ottelu_id , koti, vieras, maalitkoti, maalitvieras, voittaja, päivämäärä) " +
@@ -64,19 +62,20 @@ namespace projekti1
                 insertOttelu.Parameters.AddWithValue("ottelu_id", match.getOtteluID());
                 insertOttelu.Parameters.AddWithValue("koti", match.getJoukkue1());
                 insertOttelu.Parameters.AddWithValue("vieras", match.getJoukkue2());
-           
 
+                //JOS JATKOAIKAVOITTAJA ON KOTIJOUKKUE
                 if (match.getJatkoaikavoittaja() == match.getJoukkue1())
-                {                   
-                    insertOttelu.Parameters.AddWithValue("maalitkoti", match.GetMaalit1()+1);
+                {
+                    insertOttelu.Parameters.AddWithValue("maalitkoti", match.GetMaalit1() + 1);
                     insertOttelu.Parameters.AddWithValue("maalitvieras", match.GetMaalit2());
                     insertOttelu.Parameters.AddWithValue("voittaja", match.getJatkoaikavoittaja());
 
                 }
+                //JOS JATKOAIKAVOITTAJA ON VIERASJOUKKUE
                 if ((match.getJatkoaikavoittaja() == match.getJoukkue2()))
                 {
                     insertOttelu.Parameters.AddWithValue("maalitkoti", match.GetMaalit1());
-                    insertOttelu.Parameters.AddWithValue("maalitvieras", match.GetMaalit2()+1);                
+                    insertOttelu.Parameters.AddWithValue("maalitvieras", match.GetMaalit2() + 1);
                     insertOttelu.Parameters.AddWithValue("voittaja", match.getJatkoaikavoittaja());
                 }
 
@@ -88,11 +87,11 @@ namespace projekti1
                     // insertOttelu.Parameters.AddWithValue("voittaja", match.Getvoittaja());
                 }
                 insertOttelu.Parameters.AddWithValue("päivämäärä", match.Getottelupvm());
-
                 insertOttelu.ExecuteNonQuery();
             }
         }
 
+        //LISÄTÄÄN PELAAJAN KAIKKITIEDOT TIETOKANTA TAULUKKOON
         static public void LisaaPelaajat(Pelaaja player)
         {
             using (insertPelaajat = new NpgsqlCommand("INSERT INTO pelaajalista(pelaajaID, joukkue , pelinumero, etunimi, sukunimi, syntymävuosi, pelipaikka) " +
@@ -109,16 +108,28 @@ namespace projekti1
             }
         }
 
+        //YRITYS LISÄTÄ TOIMINTO JOLLA TIETOKANNASTA HAETAAN TIETOJA, MUTTA SITÄ EN SAANUT TOIMIMAAN TÄSSÄ AIKATAULUSSA, MUTTA AION SEN VIELÄ LAITTAA TOIMIMAAN
 
+        //static public List<Joukkue> HaeJoukkueet()
+        //{
+        //    List<Joukkue> list = new List<Joukkue>();
+        //    using (selectTaulukko = new NpgsqlCommand("SELECT joukkue FROM taulukko", connection))
+        //    {
+        //        selectTaulukko.Prepare(); // Prepare the select query that gets all cars from the database
 
+        //        using (NpgsqlDataReader results = selectTaulukko.ExecuteReader())
+        //        {
+        //            bool success;
 
+        //            while (results.Read())
+        //            {
+        //                list.Add(new Joukkue(results.GetString(0), out success));
 
-
-
-
-
-
-
+        //            }
+        //        }
+        //    }
+        //    return list;
+        //}
 
 
     }
